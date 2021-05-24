@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const requestUrl = "https://randomuser.me/api/?results="
     let inputForm = document.querySelector("form")
     let peopleList = document.querySelector("#peopleList")
+    let peopleRes = []
     // REQUEST DATA
     // take form element and prevent dfault behavior
     inputForm.addEventListener("submit", (e) => {
@@ -14,20 +15,33 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(requestUrl + userInput)
             // .then --> take response data and format
             .then((res) => {
-                console.log("respont")
+                return res.json()
             }) 
+            // .then --> use response JSON data
+            .then((jsonData) => {
+                console.log(jsonData)
+                peopleRes = jsonData.results
+                domPplzList(peopleRes)
+            })
             // .catch --> catch errors
             .catch((err) => {
                 console.log(err)
                 return err
             })
         
-
     })
+
 
     //RESPONSE DATA
     // collect formatted data
-        // create an li element for each response
-        // add li element to DOM
+    function domPplzList(resArr) {
+        resArr.forEach((person) => {
+            // create an li element for each response
+            let li = document.createElement("li")
+            li.textContent = `${person.name.first} ${person.name.last}`
 
+            // add li element to DOM
+            peopleList.appendChild(li)
+        })
+    }
 })
