@@ -1,18 +1,33 @@
-console.log("🦚")
+document.addEventListener("DOMContentLoaded", () => {
+    // store constant url for form dom element; request url
+    const requestUrl = "https://randomuser.me/api/?results="
+    let inputForm = document.querySelector("form")
+    let peopleList = document.querySelector("#peopleList")
+    // REQUEST DATA
+    // take form element and prevent dfault behavior
+    inputForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        // get user inputed number
+        let userInput = input.value
 
-// GET request to reddit for kitten
-fetch("https://www.reddit.com/search.json?q=kittens")
-    .then((res) => {
-        console.log("workin it 💅")
-        return res.json()
+        // make fetch request to const api url with given user number
+        fetch(requestUrl + userInput)
+            // .then --> take response data and format
+            .then((res) => {
+                console.log("respont")
+            }) 
+            // .catch --> catch errors
+            .catch((err) => {
+                console.log(err)
+                return err
+            })
+        
+
     })
-    .then((jsonDat) => {
-        jsonDat.data.children.forEach((elem) => {
-            console.log(elem.data.domain)
-        })
-        return jsonDat
-    })
-    .catch((err) => {
-        console.log(err)
-        return err
-    })
+
+    //RESPONSE DATA
+    // collect formatted data
+        // create an li element for each response
+        // add li element to DOM
+
+})
